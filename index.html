@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Prancha</title>
+	</head>
+	<body>
+		<h1>Prancha IFCE</h1>
+
+		<form id="cat-form">
+			<h3>Formulário de Categorias</h3>
+			<input type="hidden" id="cat-id" />
+
+			<div>
+				<label for="cat-titulo">Título</label>
+				<input type="text" id="cat-titulo" required />
+			</div>
+
+			<div>
+				<label for="cat-cor">Cor</label>
+				<input type="color" id="cat-cor" required />
+			</div>
+
+			<div>
+				<label for="cat-ordem">Ordem</label>
+				<input type="number" id="cat-ordem" required />
+			</div>
+
+			<button type="submit">Salvar</button>
+		</form>
+
+		<h3>Lista de categorias</h3>
+		<table id="cat-table">
+			<thead>
+				<tr>
+					<th>Título</th>
+					<th>Cor</th>
+					<th>Ordem</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Amigos</td>
+					<td>#ccc</td>
+					<td>1</td>
+				</tr>
+
+				<tr>
+					<td>Comidas</td>
+					<td>#fff</td>
+					<td>2</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<script>
+			// Dados
+			let cats = [];
+			let termos = [];
+
+			let catForm = document.querySelector('#cat-form');
+			catForm.addEventListener('submit', (evt) => {
+				evt.preventDefault();
+
+				let id = document.querySelector('#cat-id').value;
+				let titulo = document.querySelector('#cat-titulo').value;
+				let cor = document.querySelector('#cat-cor').value;
+				let ordem = document.querySelector('#cat-ordem').value;
+
+				let cat = {
+					id: id,
+					titulo: titulo,
+					cor: cor,
+					ordem: ordem,
+				};
+
+				if (!id) {
+					// Criação
+					cat.id = new Date().getTime();
+					cats.push(cat);
+
+					printCategorias(cats);
+				} else {
+					// Modificação
+				}
+
+				// evt.target.reset();
+			});
+
+			// Exibe uma lista de categorias
+			function printCategorias(categorias) {
+				// Pegar a table
+				let catTable = document.querySelector('#cat-table');
+				let catTableBody = document.querySelector('#cat-table tbody');
+
+				// Limpar o tbody
+				catTableBody.remove();
+
+				// Adicionar Tbody
+				catTableBody = document.createElement('tbody');
+				catTable.append(catTableBody);
+
+				// Adicionar as linhas das categorias
+				categorias.forEach((cat) => {
+					let tr = document.createElement('tr');
+					tr.style.backgroundColor = cat.cor;
+
+					tr.innerHTML = `
+                        <td>${cat.titulo}</td>
+					    <td>${cat.cor}</td>
+					    <td>${cat.ordem}</td>
+                    `;
+
+					catTableBody.append(tr);
+				});
+			}
+
+			printCategorias(cats);
+		</script>
+	</body>
+</html>
