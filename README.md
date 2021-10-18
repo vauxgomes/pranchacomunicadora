@@ -23,12 +23,14 @@ O projeto final será implementado com tecnologias mais robustas como React Nati
 O projeto pretende implementar uma versão digital editável de uma prancha comunicadora como a exibida na imagem abaixo.
 
 ![Prancha](https://www.ufrgs.br/comacesso/wp-content/uploads/2020/04/prancha-hospitalar_V_Prancheta-1-co%CC%81pia-2-768x547.jpg)
-Fonte: UFRGS
+
+**Fonte**: UFRGS
 
 Adicionalmente, pretendemos adicionar umas funcionalidades extras para escrita de textos avulsos, como na imagem abaixo.
 
 ![Teclado](https://www.ufrgs.br/comacesso/wp-content/uploads/2020/04/prancha-hospitalar_V_Prancheta-1-co%CC%81pia-768x547.jpg)
-Fonte: UFRGS
+
+**Fonte**: UFRGS
 
 Outra funcionalidade importante neste projeto é o conceito de categorias que é expresso por meio de cores na primeira imagem. As categorias vão nos ajudar a exibir e/ou esconder parte do conteúdo.
 
@@ -40,7 +42,7 @@ Por fim, a adição de termos/símbolos será a principal característica da pra
 Este protótipo será desenhado para dispositivos menores como tablets e celulares pois é voltado para um caso real existente do campus.
 
 ## Versão final
-A versão final do protótipo é utilizável e será disponibilizada em https://github.com/vauxgomes/pranchacomunicadora e pode ser usada por qualquer pessoa com acesso à internet.
+A versão final do protótipo é utilizável e será disponibilizada em https://vauxgomes.github.io/pranchacomunicadora e pode ser usada por qualquer pessoa com acesso à internet.
 
 ## Publicações
 _Uso de tecnologia assitiva para construção de uma prancha comunicadora digital, 2021, Vaux Gomes._
