@@ -1,4 +1,4 @@
-class Falador {
+class TextToSpeech {
 	constructor() {
 		this.speech = new SpeechSynthesisUtterance();
 		this.speech.lang = 'pt-BR';
@@ -8,8 +8,8 @@ class Falador {
 		this.speech.voice = window.speechSynthesis.getVoices()[14]; // Português Brasileiro
 	}
 
-	falar(texto) {
-		this.speech.text = texto;
+	talk(text) {
+		this.speech.text = text;
 		window.speechSynthesis.speak(this.speech);
 	}
 }
