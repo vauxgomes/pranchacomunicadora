@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- <meta http-equiv="refresh" content="3" /> -->
+
+		<!-- Icon -->
+		<link rel="icon" href="assets/img/icon.svg" />
+
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+			crossorigin="anonymous"
+		/>
+
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+			integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+			crossorigin="anonymous"
+		/>
+
+		<link rel="stylesheet" type="text/css" href="styles/main.css" />
+
+		<title>Prancha</title>
+	</head>
+	<body>
+		<div class="keyboard">
+			<div class="menu">
+				<div class="termo">
+					<img
+						src="https://i.picsum.photos/id/957/200/200.jpg?hmac=EEtYnA2sFaZhrEO8XM9AI5QNDaACfYTyRwgdMNrQeDQ"
+						alt="foto"
+					/>
+					<span>Sim</span>
+				</div>
+				<div class="termo">
+					<img
+						src="https://i.picsum.photos/id/560/200/200.jpg?hmac=Dqou6QpKCTK2srRsCRhlIxLQHvFL7zz6UocOb3UkpwI"
+						alt="foto"
+					/>
+					<span>Não</span>
+				</div>
+				<div class="termo">
+					<span>Começar de novo</span>
+				</div>
+				<div class="termo">
+					<span>Nova Palavra</span>
+				</div>
+
+				<div class="termo">
+					<span>Tela inicial</span>
+				</div>
+			</div>
+
+			<div class="letters">
+				<span class="letter">A</span>
+				<span class="letter">B</span>
+				<span class="letter">C</span>
+				<span class="letter">D</span>
+				<span class="letter">E</span>
+				<span class="letter">F</span>
+				<span class="letter">G</span>
+				<span class="letter">H</span>
+				<span class="letter">I</span>
+				<span class="letter">J</span>
+				<span class="letter">K</span>
+				<span class="letter">L</span>
+				<span class="letter">M</span>
+				<span class="letter">N</span>
+				<span class="letter">O</span>
+				<span class="letter">P</span>
+				<span class="letter">Q</span>
+				<span class="letter">R</span>
+				<span class="letter">S</span>
+				<span class="letter">T</span>
+				<span class="letter">U</span>
+				<span class="letter">V</span>
+				<span class="letter">W</span>
+				<span class="letter">X</span>
+				<span class="letter">Y</span>
+				<span class="letter">Z</span>
+
+				<span class="number">0</span>
+				<span class="number">1</span>
+				<span class="number">2</span>
+				<span class="number">3</span>
+				<span class="number">4</span>
+				<span class="number">5</span>
+				<span class="number">6</span>
+				<span class="number">7</span>
+				<span class="number">8</span>
+				<span class="number">9</span>
+
+				<span class="symbol">+</span>
+				<span class="symbol">-</span>
+				<span class="symbol">/</span>
+				<span class="symbol">*</span>
+
+				<span class="symbol">@</span>
+				<span class="symbol">?</span>
+			</div>
+		</div>
+	</body>
+
+	<script src="js/texttospeech.js"></script>
+	<script>
+		let speaker = new TextToSpeech();
+
+		document.querySelectorAll('.termo').forEach((termo) => {
+			termo.addEventListener('click', (evt) => {
+				// termo.classList.toggle('ativo');
+				speaker.talk(termo.querySelector('span').innerText);
+			});
+		});
+
+		Array.from(document.querySelector('.letters').children).forEach(
+			(letter) => {
+				letter.addEventListener('click', (evt) => {
+					// termo.classList.toggle('ativo');
+					speaker.talk(letter.innerText);
+				});
+			}
+		);
+	</script>
+</html>

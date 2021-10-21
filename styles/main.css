@@ -157,7 +157,7 @@ body {
 
 	.categorias {
 		grid-template-columns: repeat(1, 1fr);
-	}	
+	}
 
 	.pagina {
 		grid-template-columns: repeat(3, 1fr);
@@ -166,14 +166,13 @@ body {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
 	.prancha {
 		grid-template-columns: 7fr 1fr;
 	}
 
 	.categorias {
 		grid-template-columns: repeat(2, 1fr);
-	}	
+	}
 
 	.pagina {
 		grid-template-columns: repeat(3, 1fr);
@@ -182,7 +181,6 @@ body {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
 	.prancha {
 		grid-template-columns: 9fr 1fr;
 	}
@@ -194,4 +192,56 @@ body {
 	.pagina {
 		grid-template-columns: repeat(3, 1fr);
 	}
+}
+
+.keyboard {
+	display: grid;
+	grid-template-areas: 'letters menu';
+	grid-template-columns: 6fr 1fr;
+	gap: 0.5rem;
+
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.letters {
+	grid-area: letters;
+
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 0.5rem;
+}
+
+.letter,
+.number,
+.symbol {
+	cursor: pointer;
+
+	font-size: 30px;
+	font-weight: 600;
+	/* text-transform: uppercase; */
+
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
+
+	background-color: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(5px);
+
+	text-align: center;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.number {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.symbol {
+	background-color: rgba(0, 128, 0, 0.7);
 }
