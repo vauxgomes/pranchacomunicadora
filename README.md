@@ -24,13 +24,9 @@ O projeto pretende implementar uma versão digital editável de uma prancha comu
 
 ![Prancha](./assets/examples/index.png "Exemplo")
 
-**Fonte**: UFRGS
-
 Adicionalmente, pretendemos adicionar umas funcionalidades extras para escrita de textos avulsos, como na imagem abaixo.
 
 ![Teclado](./assets/examples/keyboard.png "Teclado")
-
-**Fonte**: UFRGS
 
 Outra funcionalidade importante neste projeto é o conceito de categorias que é expresso por meio de cores na primeira imagem. As categorias vão nos ajudar a exibir e/ou esconder parte do conteúdo.
 
