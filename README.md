@@ -22,13 +22,13 @@ O projeto final será implementado com tecnologias mais robustas como React Nati
 ## Funcionalidades
 O projeto pretende implementar uma versão digital editável de uma prancha comunicadora como a exibida na imagem abaixo.
 
-![Prancha](https://www.ufrgs.br/comacesso/wp-content/uploads/2020/04/prancha-hospitalar_V_Prancheta-1-co%CC%81pia-2-768x547.jpg)
+![Prancha](./assets/examples/index.png "Exemplo")
 
 **Fonte**: UFRGS
 
 Adicionalmente, pretendemos adicionar umas funcionalidades extras para escrita de textos avulsos, como na imagem abaixo.
 
-![Teclado](https://www.ufrgs.br/comacesso/wp-content/uploads/2020/04/prancha-hospitalar_V_Prancheta-1-co%CC%81pia-768x547.jpg)
+![Teclado](./assets/examples/keyboard.png "Teclado")
 
 **Fonte**: UFRGS
 
