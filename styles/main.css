@@ -214,7 +214,8 @@ body {
 
 .letter,
 .number,
-.symbol {
+.symbol,
+.command {
 	cursor: pointer;
 
 	font-size: 30px;
@@ -244,4 +245,12 @@ body {
 
 .symbol {
 	background-color: rgba(0, 128, 0, 0.7);
+}
+
+.command-left {
+	grid-column: 1/4;
+}
+
+.command-right {
+	grid-column: 4/7;
 }
