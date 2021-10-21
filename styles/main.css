@@ -10,37 +10,41 @@ body {
 	font-family: 'Open Sans', sans-serif;
 
 	background-color: #f4f7fc;
-	padding: 1rem;
+	padding: 0.25rem;
+
+	min-width: 320px;
+}
+
+.navbar {
+	grid-area: navbar;
 }
 
 .prancha {
 	display: grid;
-	grid-template-areas: 'categorias menu';
-	grid-template-columns: 6.5fr 1fr;
+	grid-template-areas:
+		'navbar navbar'
+		'categorias menu';
+	grid-template-columns: 2fr 1fr;
+	align-items: start;
 	gap: 0.5rem;
 
-	width: 768px;
+	max-width: 1200px;
 	margin: 0 auto;
-
-	/* overflow: hidden; */
 }
 
 .menu {
 	grid-area: menu;
-	/* padding: 0.5rem; */
 
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-
-	/* background-color: #ccc; */
 }
 
 .categorias {
 	grid-area: categorias;
 
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(1, 1fr);
 	gap: 0.5rem;
 }
 
@@ -48,21 +52,22 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 0.5rem
+	gap: 0.5rem;
 }
 
 .pagina {
 	width: 100%;
 	display: none;
-}
 
-.pagina.ativo {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(2, 1fr);
 	/* grid-template-rows: 1fr 1fr 1fr; */
 	align-content: start;
 	/* align-items: start; */
 	gap: 0.5rem;
+}
+
+.pagina.ativo {
+	display: grid;
 }
 
 .termo {
@@ -142,4 +147,51 @@ body {
 	-webkit-animation-duration: 1.5s;
 	animation-name: fade;
 	animation-duration: 1.5s;
+}
+
+/* Small devices (landscape phones, 425px and up) */
+@media (min-width: 425px) {
+	.prancha {
+		grid-template-columns: 3fr 1fr;
+	}
+
+	.categorias {
+		grid-template-columns: repeat(1, 1fr);
+	}	
+
+	.pagina {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	.prancha {
+		grid-template-columns: 7fr 1fr;
+	}
+
+	.categorias {
+		grid-template-columns: repeat(2, 1fr);
+	}	
+
+	.pagina {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+	.prancha {
+		grid-template-columns: 9fr 1fr;
+	}
+
+	.categorias {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.pagina {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
