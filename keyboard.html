@@ -32,7 +32,21 @@
 	</head>
 	<body>
 		<div class="keyboard">
+			<div class="message"></div>
+
 			<div class="menu">
+				<div class="termo mute" id="speak">
+					<span>Falar</span>
+				</div>
+
+				<div class="termo mute" id="new-word">
+					<span>Nova Palavra</span>
+				</div>
+
+				<div class="termo" id="start-over">
+					<span>Começar de novo</span>
+				</div>
+
 				<div class="termo">
 					<img
 						src="https://i.picsum.photos/id/957/200/200.jpg?hmac=EEtYnA2sFaZhrEO8XM9AI5QNDaACfYTyRwgdMNrQeDQ"
@@ -48,13 +62,9 @@
 					<span>Não</span>
 				</div>
 
-				<div class="termo">
-					<img
-						src="https://i.picsum.photos/id/560/200/200.jpg?hmac=Dqou6QpKCTK2srRsCRhlIxLQHvFL7zz6UocOb3UkpwI"
-						alt="foto"
-					/>
+				<a href="index.html" class="termo">
 					<span>Tela inicial</span>
-				</div>
+				</a>
 			</div>
 
 			<div class="letters">
@@ -84,7 +94,6 @@
 				<span class="letter">X</span>
 				<span class="letter">Y</span>
 				<span class="letter">Z</span>
-
 				<span class="number">0</span>
 				<span class="number">1</span>
 				<span class="number">2</span>
@@ -95,16 +104,12 @@
 				<span class="number">7</span>
 				<span class="number">8</span>
 				<span class="number">9</span>
-
 				<span class="symbol">+</span>
 				<span class="symbol">-</span>
 				<span class="symbol">/</span>
 				<span class="symbol">*</span>
 				<span class="symbol">@</span>
 				<span class="symbol">?</span>
-
-				<span class="command command-left">Nova Palavra</span>
-				<span class="command command-right">Começar de novo</span>
 			</div>
 		</div>
 	</body>
@@ -112,8 +117,9 @@
 	<script src="js/texttospeech.js"></script>
 	<script>
 		let speaker = new TextToSpeech();
+		let message = document.querySelector('.message');
 
-		document.querySelectorAll('.termo').forEach((termo) => {
+		document.querySelectorAll('.termo:not(.mute)').forEach((termo) => {
 			termo.addEventListener('click', (evt) => {
 				// termo.classList.toggle('ativo');
 				speaker.talk(termo.querySelector('span').innerText);
@@ -125,8 +131,21 @@
 				letter.addEventListener('click', (evt) => {
 					// termo.classList.toggle('ativo');
 					speaker.talk(letter.innerText);
+					message.innerText += letter.innerText;
 				});
 			}
 		);
+
+		document.querySelector('#new-word').addEventListener('click', (evt) => {
+			message.append('\u00A0');
+		});
+
+		document.querySelector('#start-over').addEventListener('click', (evt) => {
+			message.innerText = '';
+		});
+
+		document.querySelector('#speak').addEventListener('click', (evt) => {
+			speaker.talk(message.innerText);
+		});
 	</script>
 </html>
