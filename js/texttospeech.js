@@ -14,6 +14,9 @@ class TextToSpeech {
 				console.log('Choosing a voice');
 
 				this.speech.voice = voices.filter((voice) => {
+					console.log(`- ${voice.name}`);
+					alert(`Voice option: ${voice.name}`)
+
 					return (
 						voice.name.toLowerCase().includes('português') ||
 						voice.name.toLowerCase().includes('Brasil')
