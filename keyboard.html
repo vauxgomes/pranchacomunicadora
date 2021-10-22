@@ -128,15 +128,15 @@
 			});
 		});
 
-		// Array.from(document.querySelector('.letters').children).forEach(
-		// 	(letter) => {
-		// 		letter.addEventListener('click', (evt) => {
-		// 			// termo.classList.toggle('ativo');
-		// 			speaker.talk(letter.innerText);
-		// 			message.innerText += letter.innerText;
-		// 		});
-		// 	}
-		// );
+		Array.from(document.querySelector('.letters').children).forEach(
+			(letter) => {
+				letter.addEventListener('click', (evt) => {
+					// termo.classList.toggle('ativo');
+					// speaker.talk(letter.innerText);
+					message.innerText += letter.innerText;
+				});
+			}
+		);
 
 		document.querySelector('#new-word').addEventListener('click', (evt) => {
 			message.append('\u00A0');

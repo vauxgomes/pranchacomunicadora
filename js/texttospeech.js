@@ -24,8 +24,10 @@ class TextToSpeech {
 				clearInterval(choosingVoice);
 
 				try {
-					document.querySelector('#lang').innerText = this.speech.voice.name;
-				} catch (error) {}
+					alert(this.speech.voice.name);
+				} catch (error) {
+					alert('Erro')
+				}
 			}
 		}, 10);
 	}
