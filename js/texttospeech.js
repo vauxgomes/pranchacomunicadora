@@ -13,7 +13,8 @@ class TextToSpeech {
 				this.speech.voice = voices.filter((voice) => {
 					return (
 						voice.name.toLowerCase().includes('português') ||
-						voice.name.toLowerCase().includes('Brasil')
+						voice.name.toLowerCase().includes('Brasil') ||
+						voice.name.toLowerCase().includes('Luciana') // iOs
 					);
 				})[0];
 
