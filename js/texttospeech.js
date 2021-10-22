@@ -7,31 +7,17 @@ class TextToSpeech {
 		this.speech.volume = 1;
 
 		let choosingVoice = setInterval(() => {
-			console.log('Trying to get Voices');
 			let voices = window.speechSynthesis.getVoices();
 
 			if (voices && voices.length > 0) {
-				console.log('Choosing a voice');
-
 				this.speech.voice = voices.filter((voice) => {
-					console.log(`- ${voice.name}`);
-					alert(`Voice option: ${voice.name}`)
-
 					return (
 						voice.name.toLowerCase().includes('português') ||
 						voice.name.toLowerCase().includes('Brasil')
 					);
 				})[0];
 
-				if (!this.speech.voice) {
-					this.speech.voice = window.speechSynthesis.getVoices()[14];
-				}
-
-				console.log(`Chosen voice: ${this.speech.voice}`);
 				clearInterval(choosingVoice);
-
-				if (this.speech.voice) alert(this.speech.voice.name);
-				else alert('Erro choosing voice');
 			}
 		}, 10);
 	}
