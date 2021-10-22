@@ -6,12 +6,24 @@ class TextToSpeech {
 		this.speech.pitch = 1;
 		this.speech.volume = 1;
 
-		this.speech.voide = window.speechSynthesis.getVoices().filter(voice => {
-			return voice.name.toLowerCase().includes('português') || voice.name.toLowerCase().includes('Brasil')
-		})[0]
+		let choosingVoice = setInterval(() => {
+			let voices = window.speechSynthesis.getVoices();
 
-		if (!this.speech.voice)
-			this.speech.voice = window.speechSynthesis.getVoices()[14];
+			if (voices && voices.length > 0) {
+				this.speech.voice = voices.filter((voice) => {
+					return (
+						voice.name.toLowerCase().includes('português') ||
+						voice.name.toLowerCase().includes('Brasil')
+					);
+				})[0];
+
+				if (!this.speech.voice) {
+					this.speech.voice = window.speechSynthesis.getVoices()[14];
+				}
+
+				clearInterval(choosingVoice);
+			}
+		}, 10);
 	}
 
 	talk(text) {
