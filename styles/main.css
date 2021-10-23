@@ -7,12 +7,18 @@
 }
 
 body {
+	color: #363940;
 	font-family: 'Open Sans', sans-serif;
 
 	background-color: #f4f7fc;
 	padding: 0.25rem;
 
 	min-width: 320px;
+}
+
+a {
+	color: #363940;
+	text-decoration: none;
 }
 
 .navbar {
@@ -38,6 +44,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+
+	font-weight: bold;
 }
 
 .categorias {
@@ -45,19 +53,13 @@ body {
 
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
+
 	gap: 0.5rem;
 }
 
 .categoria {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.pagina {
 	width: 100%;
-	display: none;
+	display: grid;
 
 	grid-template-columns: repeat(2, 1fr);
 	/* grid-template-rows: 1fr 1fr 1fr; */
@@ -66,14 +68,11 @@ body {
 	gap: 0.5rem;
 }
 
-.pagina.ativo {
-	display: grid;
-}
-
 .termo {
 	cursor: pointer;
+	align-self: start;
 
-	font-size: small;
+	/* font-size: small; */
 	/* font-weight: 600; */
 	/* text-transform: uppercase; */
 
@@ -84,7 +83,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	gap: 0.5rem;
 
 	background-color: rgba(255, 255, 255, 0.5);
@@ -119,6 +118,26 @@ body {
 	-o-user-drag: none;
 }
 
+.menu .termo {
+	color: #fff;
+	background-color: #363940;
+}
+
+.termo-yes {
+	color: #363940 !important;
+	background-color: #a1e8af !important;
+}
+
+.termo-no {
+	color: #363940 !important;
+	background-color: #e8a0a0 !important;
+}
+
+.termo-idk {
+	color: #363940 !important;
+	background-color: #f3de8a !important;
+}
+
 .word-break,
 .termo span {
 	overflow-wrap: break-word;
@@ -126,28 +145,6 @@ body {
 	word-break: break-all;
 	word-break: break-word;
 	hyphens: auto;
-}
-
-.ponto {
-	cursor: pointer;
-	height: 12px;
-	width: 12px;
-	margin: 0 2px;
-	background-color: #bbb;
-	border-radius: 50%;
-	display: inline-block;
-	transition: background-color 0.6s ease;
-}
-
-.ponto.ativo {
-	background-color: #363940;
-}
-
-.esmaecer {
-	-webkit-animation-name: fade;
-	-webkit-animation-duration: 1.5s;
-	animation-name: fade;
-	animation-duration: 1.5s;
 }
 
 .keyboard {
@@ -164,9 +161,9 @@ body {
 
 .message {
 	grid-area: message;
-	
+
 	color: #565961;
-	
+
 	padding: 0.5rem 1rem;
 	font-size: 20px;
 	font-weight: 600;
@@ -231,11 +228,7 @@ body {
 		grid-template-columns: 3fr 1fr;
 	}
 
-	.categorias {
-		grid-template-columns: repeat(1, 1fr);
-	}
-
-	.pagina {
+	.categoria {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
@@ -258,7 +251,7 @@ body {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.pagina {
+	.categoria {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
@@ -281,7 +274,7 @@ body {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	.pagina {
+	.categoria {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
