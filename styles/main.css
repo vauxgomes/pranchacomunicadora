@@ -25,11 +25,11 @@ a {
 	grid-area: navbar;
 }
 
-.prancha {
+.board {
 	display: grid;
 	grid-template-areas:
 		'navbar navbar'
-		'categorias menu';
+		'board-blocks menu';
 	grid-template-columns: 2fr 1fr;
 	align-items: start;
 	gap: 0.5rem;
@@ -48,8 +48,14 @@ a {
 	font-weight: bold;
 }
 
-.categorias {
-	grid-area: categorias;
+.menu .item {
+	width: 100%;
+	color: #fff;
+	background-color: #363940;
+}
+
+.board-blocks {
+	grid-area: board-blocks;
 
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
@@ -57,7 +63,7 @@ a {
 	gap: 0.5rem;
 }
 
-.categoria {
+.board-block {
 	width: 100%;
 	display: grid;
 
@@ -68,7 +74,7 @@ a {
 	gap: 0.5rem;
 }
 
-.termo {
+.item {
 	cursor: pointer;
 	align-self: start;
 
@@ -86,7 +92,7 @@ a {
 	justify-content: flex-start;
 	gap: 0.5rem;
 
-	background-color: rgba(255, 255, 255, 0.5);
+	/* background-color: rgba(255, 255, 255, 0.5); */
 	backdrop-filter: blur(5px);
 
 	text-align: center;
@@ -99,12 +105,7 @@ a {
 	user-select: none;
 }
 
-.termo.ativo {
-	background-color: #363940;
-	color: #fff;
-}
-
-.termo img {
+.item img {
 	width: 100%;
 	height: 80px;
 
@@ -118,28 +119,21 @@ a {
 	-o-user-drag: none;
 }
 
-.menu .termo {
-	color: #fff;
-	background-color: #363940;
+.item-yes {
+	background-color: #06d6a0 !important;
 }
 
-.termo-yes {
-	color: #363940 !important;
-	background-color: #a1e8af !important;
+.item-no {
+	background-color: #ef476f !important;
 }
 
-.termo-no {
+.item-idk {
 	color: #363940 !important;
-	background-color: #e8a0a0 !important;
-}
-
-.termo-idk {
-	color: #363940 !important;
-	background-color: #f3de8a !important;
+	background-color: #ffd166 !important;
 }
 
 .word-break,
-.termo span {
+.item span {
 	overflow-wrap: break-word;
 	word-wrap: break-word;
 	word-break: break-all;
@@ -224,11 +218,11 @@ a {
 
 /* Small devices (landscape phones, 425px and up) */
 @media (min-width: 425px) {
-	.prancha {
+	.board {
 		grid-template-columns: 3fr 1fr;
 	}
 
-	.categoria {
+	.board-block {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
@@ -243,15 +237,15 @@ a {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-	.prancha {
+	.board {
 		grid-template-columns: 7fr 1fr;
 	}
 
-	.categorias {
+	.board-blocks {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	.categoria {
+	.board-block {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
@@ -266,15 +260,15 @@ a {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-	.prancha {
+	.board {
 		grid-template-columns: 9fr 1fr;
 	}
 
-	.categorias {
+	.board-blocks {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	.categoria {
+	.board-block {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }

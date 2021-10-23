@@ -31,37 +31,37 @@
 		<title>Prancha</title>
 	</head>
 	<body>
-		<div class="prancha">
+		<div class="board">
 			<div class="menu">
-				<div class="termo termo-yes">
+				<div class="item item-yes">
 					<img
 						src="https://i.picsum.photos/id/957/200/200.jpg?hmac=EEtYnA2sFaZhrEO8XM9AI5QNDaACfYTyRwgdMNrQeDQ"
 						alt="foto"
 					/>
 					<span>Sim</span>
 				</div>
-				<div class="termo termo-no">
+				<div class="item item-no">
 					<img
 						src="https://i.picsum.photos/id/560/200/200.jpg?hmac=Dqou6QpKCTK2srRsCRhlIxLQHvFL7zz6UocOb3UkpwI"
 						alt="foto"
 					/>
 					<span>Não</span>
 				</div>
-				<div class="termo termo-idk">
+				<div class="item item-idk">
 					<img
 						src="https://i.picsum.photos/id/83/200/200.jpg?hmac=PWpSDFTveI1bSJjmrf_vnw4ipqEELicSPpDf8jb89FI"
 						alt="foto"
 					/>
 					<span>Não sei</span>
 				</div>
-				<a class="termo" href="./keyboard.html">
+				<a class="item" href="./keyboard.html">
 					<img
 						src="https://i.picsum.photos/id/1001/200/200.jpg?hmac=J4yq_Q2Zy5CCcNlGMUf26bes2ksQBi_MzvdgW7rAcio"
 						alt="foto"
 					/>
 					<span>Soletrar</span>
 				</a>
-				<div class="termo">
+				<div class="item">
 					<img
 						src="https://i.picsum.photos/id/521/200/200.jpg?hmac=J25eIJlH4Vz83r581TpDZbrmu21tzbZMognm7gqkoWo"
 						alt="foto"
@@ -70,38 +70,45 @@
 				</div>
 			</div>
 
-			<div class="categorias"></div>
+			<div class="board-blocks"></div>
 		</div>
 	</body>
 
 	<script src="js/data.js"></script>
+	<script src="js/utils.js"></script>
 	<script src="js/texttospeech.js"></script>
 	<script>
 		window.onload = () => {
 			// Populating
-			let categorias = document.querySelector('.categorias');
+			let blocks = document.querySelector('.board-blocks');
 			data.forEach((c) => {
-				let categoria = document.createElement('div');
-				categoria.classList.add('categoria');
+				let block = document.createElement('div');
+				block.classList.add('board-block');
 
-				c.termos.forEach((t) => {
-					let termo = document.createElement('div');
+				c.items.forEach((t) => {
+					let item = document.createElement('div');
 
-					termo.classList.add('termo');
-					termo.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
+					item.style.backgroundColor = c.color;
 
-					categoria.append(termo);
+					if (!isBright(c.color)) {
+						item.style.color = '#fff';
+					}
+
+					item.classList.add('item');
+					item.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
+
+					block.append(item);
 				});
 
-				categorias.append(categoria);
+				blocks.append(block);
 			});
 
 			// Speaker
 			let speaker = new TextToSpeech();
 
-			document.querySelectorAll('.termo').forEach((termo) => {
-				termo.addEventListener('click', (evt) => {
-					speaker.talk(termo.querySelector('span').innerText);
+			document.querySelectorAll('.item').forEach((item) => {
+				item.addEventListener('click', (evt) => {
+					speaker.talk(item.querySelector('span').innerText);
 				});
 			});
 		};

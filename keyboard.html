@@ -9,23 +9,6 @@
 
 		<!-- Icon -->
 		<link rel="icon" href="assets/img/icon.svg" />
-
-		<!-- Bootstrap CSS -->
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
-			crossorigin="anonymous"
-		/>
-
-		<!-- Font Awesome -->
-		<link
-			rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-			integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-			crossorigin="anonymous"
-		/>
-
 		<link rel="stylesheet" type="text/css" href="styles/main.css" />
 
 		<title>Prancha</title>
@@ -35,26 +18,26 @@
 			<div class="message"></div>
 
 			<div class="menu">
-				<div class="termo mute" id="speak">
+				<div class="item mute" id="speak">
 					<span>Falar</span>
 				</div>
 
-				<div class="termo termo-idk mute" id="new-word">
+				<div class="item item-idk mute" id="new-word">
 					<span>Espaço</span>
 				</div>
 
-				<div class="termo" id="start-over">
+				<div class="item mute" id="start-over">
 					<span>Começar de novo</span>
 				</div>
 
-				<div class="termo termo-yes">
+				<div class="item item-yes">
 					<span>Sim</span>
 				</div>
-				<div class="termo termo-no">
+				<div class="item item-no">
 					<span>Não</span>
 				</div>
 
-				<a href="index.html" class="termo">
+				<a href="index.html" class="item">
 					<span>Tela inicial</span>
 				</a>
 			</div>
@@ -111,17 +94,17 @@
 		let speaker = new TextToSpeech();
 		let message = document.querySelector('.message');
 
-		document.querySelectorAll('.termo:not(.mute)').forEach((termo) => {
-			termo.addEventListener('click', (evt) => {
-				// termo.classList.toggle('ativo');
-				speaker.talk(termo.querySelector('span').innerText);
+		document.querySelectorAll('.item:not(.mute)').forEach((item) => {
+			item.addEventListener('click', (evt) => {
+				// item.classList.toggle('ativo');
+				speaker.talk(item.querySelector('span').innerText);
 			});
 		});
 
 		Array.from(document.querySelector('.letters').children).forEach(
 			(letter) => {
 				letter.addEventListener('click', (evt) => {
-					// termo.classList.toggle('ativo');
+					// item.classList.toggle('ativo');
 					// speaker.talk(letter.innerText);
 					message.innerText += letter.innerText;
 				});
