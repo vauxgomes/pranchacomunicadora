@@ -1,0 +1,23 @@
+:root {
+	/* Colors */
+	--off-white: #fdfdfd;
+	--gray: #bac0ca;
+	--light-gray: #f3f4fa;
+	--medium-gray: #aeb4b9;
+	--dark-gray: #898a8b;
+	--line-gray: #e7ebee;
+
+	/* Measures */
+	--board-max-width: 1200px;
+	--body-min-width: 320px;
+
+	/* Spacing */
+	--spacing-sm: 0.25rem;
+	--spacing-md: 0.5rem;
+	--spacing-lg: 1rem;
+
+	/* Border radius */
+	--border-radius-lg: 0.75rem;
+	--border-radius-md: 0.5rem;
+	--border-radius-sm: 0.25rem;
+}
