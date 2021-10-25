@@ -1,125 +1,200 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>Prancha</title>
-	</head>
-	<body>
-		<h1>Prancha IFCE</h1>
+        <!-- Material Icons -->
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
 
-		<form id="cat-form">
-			<h3>Formulário de Categorias</h3>
-			<input type="hidden" id="cat-id" />
+        <title>Prancha</title>
+    </head>
+    <body>
+        <h1>Prancha IFCE</h1>
 
-			<div>
-				<label for="cat-titulo">Título</label>
-				<input type="text" id="cat-titulo" required />
-			</div>
+        <form id="termo-form">
+            <h3>Formulário de Termos</h3>
+            <input type="hidden" id="termo-id" />
 
-			<div>
-				<label for="cat-cor">Cor</label>
-				<input type="color" id="cat-cor" required />
-			</div>
+            <div>
+                <label for="termo-titulo">Título</label>
+                <input type="text" id="termo-titulo" required />
+            </div>
 
-			<div>
-				<label for="cat-ordem">Ordem</label>
-				<input type="number" id="cat-ordem" required />
-			</div>
+            <div>
+                <label for="termo-imagem">Imagem</label>
+                <input type="text" id="termo-imagem" />
+            </div>
 
-			<button type="submit">Salvar</button>
-		</form>
+            <div>
+                <label for="termo-ordem">Ordem</label>
+                <input type="number" id="termo-ordem" required />
+            </div>
 
-		<h3>Lista de categorias</h3>
-		<table id="cat-table">
-			<thead>
-				<tr>
-					<th>Título</th>
-					<th>Cor</th>
-					<th>Ordem</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Amigos</td>
-					<td>#ccc</td>
-					<td>1</td>
-				</tr>
+            <div>
+                <label for="termo-cat">Categoria</label>
+                <select id="termo-cat" required>
+                    <option value="" disabled selected>Escolha</option>
+                </select>
+            </div>
 
-				<tr>
-					<td>Comidas</td>
-					<td>#fff</td>
-					<td>2</td>
-				</tr>
-			</tbody>
-		</table>
+            <button type="submit">Salvar</button>
+        </form>
 
-		<script>
-			// Dados
-			let cats = [];
-			let termos = [];
+        <h3>Lista de termos</h3>
+        <table id="termo-table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Imagem</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-			let catForm = document.querySelector('#cat-form');
-			catForm.addEventListener('submit', (evt) => {
-				evt.preventDefault();
+        <script>
+            // Dados
+            let cats = [
+                {
+                    id: 1635159911910,
+                    titulo: "Cat 1",
+                    cor: "#FF0000",
+                    ordem: "1",
+                    termos: [
+                        {
+                            id: 1635165848820,
+                            titulo: "Termo 2",
+                            imagem: "Imagem 2",
+                            ordem: "300",
+                            categoria_id: 1635159911910,
+                        },
+                    ],
+                },
+                {
+                    id: 1635159915876,
+                    titulo: "Cat 2",
+                    cor: "#009900",
+                    ordem: "2",
+                    termos: [],
+                },
+                {
+                    id: 1635159920040,
+                    titulo: "Cat 3",
+                    cor: "#0000FF",
+                    ordem: "3",
+                    termos: [
+                        {
+                            id: 1635165750796,
+                            titulo: "Termo 1",
+                            imagem: "Imagem 1",
+                            ordem: "1",
+                            categoria_id: 1635159920040,
+                        },
+                    ],
+                },
+            ];
 
-				let id = document.querySelector('#cat-id').value;
-				let titulo = document.querySelector('#cat-titulo').value;
-				let cor = document.querySelector('#cat-cor').value;
-				let ordem = document.querySelector('#cat-ordem').value;
+            let termoForm = document.querySelector("#termo-form");
+            termoForm.addEventListener("submit", (evt) => {
+                evt.preventDefault();
 
-				let cat = {
-					id: id,
-					titulo: titulo,
-					cor: cor,
-					ordem: ordem,
-				};
+                let id = document.querySelector("#termo-id").value;
+                let titulo = document.querySelector("#termo-titulo").value;
+                let imagem = document.querySelector("#termo-imagem").value;
+                let ordem = document.querySelector("#termo-ordem").value;
+                let cat = document.querySelector("#termo-cat").value;
 
-				if (!id) {
-					// Criação
-					cat.id = new Date().getTime();
-					cats.push(cat);
+                let termo = {
+                    id: id,
+                    titulo: titulo,
+                    imagem: imagem,
+                    ordem: ordem,
+                    categoria_id: cat,
+                };
 
-					printCategorias(cats);
-				} else {
-					// Modificação
-				}
+                if (!id) {
+                    // Criação
+                    termo.id = new Date().getTime();
 
-				// evt.target.reset();
-			});
+                    // Encontrar a categoria
+                    let index = encontrarCategoria(termo.categoria_id);
 
-			// Exibe uma lista de categorias
-			function printCategorias(categorias) {
-				// Pegar a table
-				let catTable = document.querySelector('#cat-table');
-				let catTableBody = document.querySelector('#cat-table tbody');
+                    if (index === -1) {
+                        alert("Id inválido");
+                    } else {
+                        cats[index].termos.push(termo);
+                    }
+                } else {
+                    // Modificação
+                }
 
-				// Limpar o tbody
-				catTableBody.remove();
+                printTermos();
+                evt.target.reset();
+            });
 
-				// Adicionar Tbody
-				catTableBody = document.createElement('tbody');
-				catTable.append(catTableBody);
+            function encontrarCategoria(id) {
+                return cats.findIndex((cat) => {
+                    return cat.id === parseInt(id);
+                });
+            }
 
-				// Adicionar as linhas das categorias
-				categorias.forEach((cat) => {
-					let tr = document.createElement('tr');
-					tr.style.backgroundColor = cat.cor;
+            function printTermos() {
+                let termoTableBody =
+                    document.querySelector("#termo-table tbody");
 
-					tr.innerHTML = `
-                        <td>${cat.titulo}</td>
-					    <td>${cat.cor}</td>
-					    <td>${cat.ordem}</td>
-                    `;
+                termoTableBody.innerHTML = "";
 
-					catTableBody.append(tr);
-				});
-			}
+                // Para cada categoria
+                cats.forEach((cat) => {
+                    // Para cada termo
+                    cat.termos.forEach((termo) => {
+                        let tr = document.createElement("tr");
+                        tr.innerHTML = `
+                                        <td>${termo.titulo}</td>
+                                        <td>${termo.imagem}</td>
+                                        <td>${termo.ordem}</td>
+                                        <td>${cat.titulo}</td>
 
-			printCategorias(cats);
-		</script>
-	</body>
+                                        <td>
+                                            <button onclick="carregarTermo(${termo.categoria_id}, ${termo.id})"><span class="material-icons">edit</span></button>
+                                            <button onclick="deletarTermo(${termo.categoria_id}, ${termo.id})"><span class="material-icons">delete</span></button>
+                                        </td>
+                                    `;
+
+                        termoTableBody.append(tr);
+                    });
+                });
+            }
+
+            function carregarTermo(categoriaId, termoId) {
+                alert("Carregar termo");
+            }
+
+            function deletarTermo(categoriaId, termoId) {
+                alert("Deletar termo");
+            }
+
+            function printCategorias() {
+                let select = document.querySelector("#termo-cat");
+
+                cats.forEach((cat) => {
+                    let opt = document.createElement("option");
+                    opt.value = cat.id;
+                    opt.innerText = cat.titulo;
+
+                    select.append(opt);
+                });
+            }
+
+            printTermos();
+            printCategorias();
+        </script>
+    </body>
 </html>
