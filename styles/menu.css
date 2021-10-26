@@ -1,0 +1,15 @@
+.menu {
+	grid-area: menu;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	font-weight: bold;
+}
+
+.menu .item {
+	width: 100%;
+	color: #ffffff;
+	background-color: #363940;
+}

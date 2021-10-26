@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- <meta http-equiv="refresh" content="3" /> -->
+
+		<!-- Icon -->
+		<link rel="icon" href="assets/img/icon.svg" />
+
+		<title>Prancha-Debug</title>
+	</head>
+	<body>
+		<select id="voices"></select>
+		<button id="speak">Falar</button>
+
+		<pre id="output"></pre>
+	</body>
+
+	<script>
+		let s = document.querySelector('#voices');
+		let p = document.querySelector('#output');
+		let voice = '';
+
+		let choosingVoice = setInterval(() => {
+			let voices = window.speechSynthesis.getVoices();
+
+			s.innerHTML = '';
+
+			p.innerText += '# Starting \x0A';
+			p.innerText += '  Voice options: \x0A';
+
+			if (voices && voices.length > 0) {
+				voice = voices.filter((voice) => {
+					p.innerText += `  - ${voice.name}\x0A`;
+
+					let o = document.createElement('option');
+					o.innerText = voice.name;
+
+					s.append(o);
+
+					return (
+						voice.name.toLowerCase().includes('português') ||
+						voice.name.toLowerCase().includes('Brasil')
+					);
+				})[0];
+
+				clearInterval(choosingVoice);
+			} else {
+				p.innerText += '  - None\x0A';
+			}
+
+			p.innerText += `  Chosen voice: ${voice.name}\x0A\x0A`;
+		}, 10);
+
+		document.querySelector('#speak').addEventListener('click', () => {
+			let speech = new SpeechSynthesisUtterance();
+			speech.lang = 'pt-BR';
+			speech.rate = 1;
+			speech.pitch = 1;
+			speech.volume = 1;
+			speech.voice = window.speechSynthesis
+				.getVoices()
+				.filter((voice) => voice.name === s.value)[0];
+			speech.text = 'Oi! Tudo bem?';
+
+			window.speechSynthesis.speak(speech);
+		});
+	</script>
+</html>

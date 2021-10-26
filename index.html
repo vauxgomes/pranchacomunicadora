@@ -1,200 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- Material Icons -->
-        <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-        />
+		<!-- <meta http-equiv="refresh" content="3" /> -->
 
-        <title>Prancha</title>
-    </head>
-    <body>
-        <h1>Prancha IFCE</h1>
+		<!-- Icon -->
+		<link rel="icon" href="assets/img/icon.svg" />
 
-        <form id="termo-form">
-            <h3>Formulário de Termos</h3>
-            <input type="hidden" id="termo-id" />
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+			integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+			crossorigin="anonymous"
+		/>
 
-            <div>
-                <label for="termo-titulo">Título</label>
-                <input type="text" id="termo-titulo" required />
-            </div>
+		<link rel="stylesheet" type="text/css" href="styles/main.css" />
 
-            <div>
-                <label for="termo-imagem">Imagem</label>
-                <input type="text" id="termo-imagem" />
-            </div>
+		<title>Prancha</title>
+	</head>
+	<body>
+		<div class="board">
+			<div class="menu">
+				<div class="item item-yes">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/562/562860.png"
+						alt="foto"
+					/>
+					<span>Sim</span>
+				</div>
+				<div class="item item-no">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/4807/4807788.png"
+						alt="foto"
+					/>
+					<span>Não</span>
+				</div>
+				<div class="item item-idk">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/5736/5736960.png"
+						alt="foto"
+					/>
+					<span>Não sei</span>
+				</div>
+				<a class="item" href="./keyboard.html">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/5559/5559853.png"
+						alt="foto"
+					/>
+					<span>Soletrar</span>
+				</a>
+				<a class="item" href="./config.html">
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/5757/5757045.png"
+						alt="foto"
+					/>
+					<span>Configurar</span>
+				</a	>
+			</div>
 
-            <div>
-                <label for="termo-ordem">Ordem</label>
-                <input type="number" id="termo-ordem" required />
-            </div>
+			<div class="board-blocks"></div>
+		</div>
+	</body>
 
-            <div>
-                <label for="termo-cat">Categoria</label>
-                <select id="termo-cat" required>
-                    <option value="" disabled selected>Escolha</option>
-                </select>
-            </div>
+	<script src="js/data.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/texttospeech.js"></script>
+	<script>
+		window.onload = () => {
+			// Populating
+			let blocks = document.querySelector('.board-blocks');
+			data.forEach((c) => {
+				let block = document.createElement('div');
+				block.classList.add('board-block');
 
-            <button type="submit">Salvar</button>
-        </form>
+				c.items.forEach((t) => {
+					let item = document.createElement('div');
 
-        <h3>Lista de termos</h3>
-        <table id="termo-table">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Imagem</th>
-                    <th>Ordem</th>
-                    <th>Categoria</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+					item.style.backgroundColor = c.color;
 
-        <script>
-            // Dados
-            let cats = [
-                {
-                    id: 1635159911910,
-                    titulo: "Cat 1",
-                    cor: "#FF0000",
-                    ordem: "1",
-                    termos: [
-                        {
-                            id: 1635165848820,
-                            titulo: "Termo 2",
-                            imagem: "Imagem 2",
-                            ordem: "300",
-                            categoria_id: 1635159911910,
-                        },
-                    ],
-                },
-                {
-                    id: 1635159915876,
-                    titulo: "Cat 2",
-                    cor: "#009900",
-                    ordem: "2",
-                    termos: [],
-                },
-                {
-                    id: 1635159920040,
-                    titulo: "Cat 3",
-                    cor: "#0000FF",
-                    ordem: "3",
-                    termos: [
-                        {
-                            id: 1635165750796,
-                            titulo: "Termo 1",
-                            imagem: "Imagem 1",
-                            ordem: "1",
-                            categoria_id: 1635159920040,
-                        },
-                    ],
-                },
-            ];
+					if (!isBright(c.color)) {
+						item.style.color = '#fff';
+					}
 
-            let termoForm = document.querySelector("#termo-form");
-            termoForm.addEventListener("submit", (evt) => {
-                evt.preventDefault();
+					item.classList.add('item');
+					item.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
 
-                let id = document.querySelector("#termo-id").value;
-                let titulo = document.querySelector("#termo-titulo").value;
-                let imagem = document.querySelector("#termo-imagem").value;
-                let ordem = document.querySelector("#termo-ordem").value;
-                let cat = document.querySelector("#termo-cat").value;
+					block.append(item);
+				});
 
-                let termo = {
-                    id: id,
-                    titulo: titulo,
-                    imagem: imagem,
-                    ordem: ordem,
-                    categoria_id: cat,
-                };
+				blocks.append(block);
+			});
 
-                if (!id) {
-                    // Criação
-                    termo.id = new Date().getTime();
+			// Speaker
+			let speaker = new TextToSpeech();
 
-                    // Encontrar a categoria
-                    let index = encontrarCategoria(termo.categoria_id);
-
-                    if (index === -1) {
-                        alert("Id inválido");
-                    } else {
-                        cats[index].termos.push(termo);
-                    }
-                } else {
-                    // Modificação
-                }
-
-                printTermos();
-                evt.target.reset();
-            });
-
-            function encontrarCategoria(id) {
-                return cats.findIndex((cat) => {
-                    return cat.id === parseInt(id);
-                });
-            }
-
-            function printTermos() {
-                let termoTableBody =
-                    document.querySelector("#termo-table tbody");
-
-                termoTableBody.innerHTML = "";
-
-                // Para cada categoria
-                cats.forEach((cat) => {
-                    // Para cada termo
-                    cat.termos.forEach((termo) => {
-                        let tr = document.createElement("tr");
-                        tr.innerHTML = `
-                                        <td>${termo.titulo}</td>
-                                        <td>${termo.imagem}</td>
-                                        <td>${termo.ordem}</td>
-                                        <td>${cat.titulo}</td>
-
-                                        <td>
-                                            <button onclick="carregarTermo(${termo.categoria_id}, ${termo.id})"><span class="material-icons">edit</span></button>
-                                            <button onclick="deletarTermo(${termo.categoria_id}, ${termo.id})"><span class="material-icons">delete</span></button>
-                                        </td>
-                                    `;
-
-                        termoTableBody.append(tr);
-                    });
-                });
-            }
-
-            function carregarTermo(categoriaId, termoId) {
-                alert("Carregar termo");
-            }
-
-            function deletarTermo(categoriaId, termoId) {
-                alert("Deletar termo");
-            }
-
-            function printCategorias() {
-                let select = document.querySelector("#termo-cat");
-
-                cats.forEach((cat) => {
-                    let opt = document.createElement("option");
-                    opt.value = cat.id;
-                    opt.innerText = cat.titulo;
-
-                    select.append(opt);
-                });
-            }
-
-            printTermos();
-            printCategorias();
-        </script>
-    </body>
+			document.querySelectorAll('.item').forEach((item) => {
+				item.addEventListener('click', (evt) => {
+					speaker.talk(item.querySelector('span').innerText);
+				});
+			});
+		};
+	</script>
 </html>
