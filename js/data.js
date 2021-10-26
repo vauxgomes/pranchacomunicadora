@@ -54,7 +54,7 @@ let data = [
         color: "#ffd166",
         items: [
             {
-                text: "O que?",
+                text: "O quê?",
                 src: "https://cdn-icons-png.flaticon.com/512/5485/5485820.png",
                 alt: "Flat Icon",
             },
@@ -198,7 +198,7 @@ let data = [
     },
     {
         id: 1635011064304,
-        order: 3,
+        order: 4,
         name: "Outros",
         color: "#fb5607",
         items: [
@@ -231,7 +231,7 @@ let data = [
     },
     {
         id: 1635184726990,
-        order: 4,
+        order: 5,
         name: "Pessoas",
         color: "#a8dadc",
         items: [
@@ -249,7 +249,7 @@ let data = [
     },
     {
         id: 1635188319300,
-        order: 4,
+        order: 6,
         name: "Locais",
         color: "#EBC3DB",
         items: [
