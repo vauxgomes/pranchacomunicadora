@@ -107,12 +107,24 @@
                         </li>
                         <li class="nav-item">
                             <a
-                                class="nav-link"
+                                class="
+                                    nav-link
+                                    d-flex
+                                    justify-content-between
+                                    align-items-center
+                                "
                                 data-bs-toggle="tab"
                                 data-bs-target="#saveload-tab"
                                 href="#"
                             >
                                 Salvar & Carregar
+                                <span
+                                    class="material-icons d-none"
+                                    id="modification-sign"
+                                    style="font-size: 20px"
+                                >
+                                    error
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -134,7 +146,7 @@
                         </button>
 
                         <table class="table table-hover" id="blocks-table">
-                            <thead>
+                            <thead class="sticky-top bg-white shadow-sm">
                                 <tr>
                                     <th>Cor</th>
                                     <th>Título</th>
@@ -177,7 +189,7 @@
                         </button>
 
                         <table class="table table-hover" id="items-table">
-                            <thead>
+                            <thead class="sticky-top bg-white shadow-sm">
                                 <tr>
                                     <th>Categoria</th>
                                     <th>Título</th>
@@ -234,7 +246,7 @@
                         <button
                             class="btn btn-sm btn-warning mb-4"
                             id="btn-download"
-							disabled
+                            disabled
                         >
                             Baixar prancha (JSON)
                         </button>
@@ -253,7 +265,7 @@
                         <button
                             class="btn btn-sm btn-warning mb-4"
                             id="btn-upload"
-							disabled
+                            disabled
                         >
                             Carregar prancha (JSON)
                         </button>
@@ -385,7 +397,7 @@
                         </div>
 
                         <div class="mb-2">
-                            <label for="item-name" class="col-form-label">
+                            <label for="item-image-url" class="col-form-label">
                                 Imagem:
                             </label>
                             <input
@@ -397,7 +409,7 @@
                         </div>
 
                         <div class="mb-2">
-                            <label for="item-name" class="col-form-label">
+                            <label for="item-image-alt" class="col-form-label">
                                 Origem da imagem:
                             </label>
                             <input
@@ -455,7 +467,6 @@
             // Globals
             let blocksModal = null;
             let itemsModal = null;
-            let modified = false;
 
             // Printing Functions
             function printBlocks(blocks) {
@@ -478,9 +489,9 @@
                     	<td>${block.order}</td>
                     	<td>${block.items.length}</td>
                     	<td class="text-end">
-            	<button onclick="loadBlock(${block.id})" class="btn btn-sm btn-link"><span class="material-icons">edit_note</span></button>
-            	<button onclick="deleteBlock(${block.id})" class="btn btn-sm btn-link"><span class="material-icons">clear</span></button>
-            </td>
+                            <button onclick="loadBlock(${block.id})" class="btn btn-sm btn-link"><span class="material-icons">edit_note</span></button>
+                            <button onclick="deleteBlock(${block.id})" class="btn btn-sm btn-link"><span class="material-icons">clear</span></button>
+                        </td>
                     `;
 
                         tbody.append(tr);
@@ -519,10 +530,10 @@
                     	<td>${item.text}</td>
                     	<td><img src="${item.src}" width="30" alt="Image"/></td>
                     	<td>${item.order}</td>
-            <td class="text-end">
-            	<button class="btn btn-sm btn-link"><span class="material-icons">edit_note</span></button>
-            	<button class="btn btn-sm btn-link"><span class="material-icons">clear</span></button>
-            </td>
+                        <td class="text-end">
+                            <button onclick="loadItem(${block.id}, ${item.id})" class="btn btn-sm btn-link"><span class="material-icons">edit_note</span></button>
+                            <button onclick="deleteItem(${block.id}, ${item.id})" class="btn btn-sm btn-link"><span class="material-icons">clear</span></button>
+                        </td>
                     `;
 
                         tbody.append(tr);
@@ -530,6 +541,16 @@
 
                     table.append(tbody);
                 });
+            }
+
+            function updateModificationSign(status) {
+                let sign = document.querySelector("#modification-sign");
+
+                if (status) {
+                    sign.classList.remove("d-none");
+                } else {
+                    sign.classList.add("d-none");
+                }
             }
 
             // Loading functions
@@ -544,6 +565,26 @@
                     data[index].order;
 
                 blocksModal.show();
+            }
+
+            function loadItem(blockId, id) {
+                let blockIndex = data.findIndex((b) => b.id == blockId);
+                let index = data[blockIndex].items.findIndex((i) => i.id == id);
+
+                document.querySelector("#item-block").value =
+                    data[blockIndex].id;
+                document.querySelector("#item-id").value =
+                    data[blockIndex].items[index].id;
+                document.querySelector("#item-name").value =
+                    data[blockIndex].items[index].text;
+                document.querySelector("#item-image-url").value =
+                    data[blockIndex].items[index].src;
+                document.querySelector("#item-image-alt").value =
+                    data[blockIndex].items[index].alt;
+                document.querySelector("#item-order").value =
+                    data[blockIndex].items[index].order;
+
+                itemsModal.show();
             }
 
             // Delete functions
@@ -563,16 +604,39 @@
 
                     printBlocks(data);
                     printItems(data);
+
+                    updateModificationSign(true);
+                }
+            }
+
+            function deleteItem(blockId, id) {
+                let blockIndex = data.findIndex((b) => b.id == blockId);
+                let index = data[blockIndex].items.findIndex((i) => i.id == id);
+
+                if (index === -1) {
+                    alert("Id inválido");
                 }
 
-                modified = true;
+                const ans = confirm(
+                    "Você realmente gostaria de remover este item?"
+                );
+
+                if (ans) {
+                    data[blockIndex].items.splice(index, 1);
+
+                    printBlocks(data);
+                    printItems(data);
+
+                    updateModificationSign(true);
+                }
+
+                updateModificationSign(true);
             }
 
             window.onload = () => {
                 // Calls
                 setRandomColor();
 
-                sortBlocks(data);
                 printBlocks(data);
                 printItems(data);
 
@@ -620,11 +684,9 @@
 
                         sortBlocks(data);
                         printBlocks(data);
+                        updateModificationSign(true);
 
                         blocksModal.hide();
-                        modified = true;
-
-                        console.log("Block added/modified");
                     });
 
                 document
@@ -632,21 +694,41 @@
                     .addEventListener("submit", (evt) => {
                         evt.preventDefault();
 
-                        // let block = {
-                        //     id: document.querySelector("#block-id").value,
-                        //     name: document.querySelector("#block-name").value
-                        //     color: document.querySelector("#block-color").value,
-                        //     order: document.querySelector("#block-order").value,
-                        //     items: [],
-                        // };
+                        let blockId =
+                            document.querySelector("#item-block").value;
+                        let blockIndex = data.findIndex((b) => b.id == blockId);
 
-                        // if (!block.id) {
-                        //     block.id = new Date().getTime();
-                        //     data.push(block);
-                        // }
+                        let item = {
+                            id: parseInt(
+                                document.querySelector("#item-id").value
+                            ),
+                            order: document.querySelector("#item-order").value,
+                            text: document.querySelector("#item-name").value,
+                            src: document.querySelector("#item-image-url")
+                                .value,
+                            alt: document.querySelector("#item-image-alt")
+                                .value,
+                        };
 
-                        // sortBlocks(data);
-                        // printBlocks(data);
+                        if (!item.id) {
+                            item.id = new Date().getTime();
+                            data[blockIndex].items.push(item);
+                        } else {
+                            let index = data[blockIndex].items.findIndex(
+                                (i) => i.id == item.id
+                            );
+
+                            data[blockIndex].items[index] = item;
+                        }
+
+                        data[blockIndex].items = sortItems(
+                            data[blockIndex].items
+                        );
+
+                        printBlocks(data);
+                        printItems(data);
+                        updateModificationSign(true);
+
                         itemsModal.hide();
                     });
             };
@@ -660,6 +742,7 @@
                 .querySelector("#btn-save")
                 .addEventListener("click", () => {
                     localStorage.setItem(DATA_NAME, JSON.stringify(data));
+                    updateModificationSign(false);
                     alert("Salvo com sucesso!");
                 });
 
@@ -677,7 +760,7 @@
 
                     printBlocks(data);
                     printItems(data);
-
+                    updateModificationSign(false);
                     alert("Carregado com sucesso!");
                 });
 

@@ -14,12 +14,21 @@ function isBright(color) {
 }
 
 function sortBlocks(blocks) {
-	console.log(blocks)
     return blocks.sort((a, b) => {
         if (a.order > b.order) return 1;
         else if (a.order < b.order) return -1;
-        else if (a.name < b.name) return 1;
-        else if (a.name > b.name) return -1;
+        else if (a.name > b.name) return 1;
+        else if (a.name < b.name) return -1;
         return a.id < b.id ? 1 : -1;
+    });
+}
+
+function sortItems(items) {
+    return items.sort((a, b) => {
+        if (a.order > b.order) return 1;
+        else if (a.order < b.order) return -1;
+        else if (a.name > b.name) return 1;
+        else if (a.name < b.name) return -1;
+        return 0;
     });
 }
