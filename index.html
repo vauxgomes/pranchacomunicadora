@@ -1,108 +1,197 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- <meta http-equiv="refresh" content="3" /> -->
+        <!-- <meta http-equiv="refresh" content="3" /> -->
 
-		<!-- Icon -->
-		<link rel="icon" href="assets/img/icon.svg" />
+        <!-- Icon -->
+        <link rel="icon" href="assets/img/icon.svg" />
 
-		<!-- Font Awesome -->
-		<link
-			rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-			integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-			crossorigin="anonymous"
-		/>
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+            integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+            crossorigin="anonymous"
+        />
 
-		<link rel="stylesheet" type="text/css" href="styles/main.css" />
+        <link rel="stylesheet" type="text/css" href="styles/main.css" />
 
-		<title>Prancha</title>
-	</head>
-	<body>
-		<div class="board">
-			<div class="menu">
-				<div class="item item-yes">
-					<img
-						src="https://cdn-icons-png.flaticon.com/512/562/562860.png"
-						alt="foto"
-					/>
-					<span>Sim</span>
-				</div>
-				<div class="item item-no">
-					<img
-						src="https://cdn-icons-png.flaticon.com/512/4807/4807788.png"
-						alt="foto"
-					/>
-					<span>Não</span>
-				</div>
-				<div class="item item-idk">
-					<img
-						src="https://cdn-icons-png.flaticon.com/512/5736/5736960.png"
-						alt="foto"
-					/>
-					<span>Não sei</span>
-				</div>
-				<a class="item" href="./keyboard.html">
-					<img
-						src="https://cdn-icons-png.flaticon.com/512/5559/5559853.png"
-						alt="foto"
-					/>
-					<span>Soletrar</span>
-				</a>
-				<a class="item" href="./config.html">
-					<img
-						src="https://cdn-icons-png.flaticon.com/512/5757/5757045.png"
-						alt="foto"
-					/>
-					<span>Configurar</span>
-				</a	>
-			</div>
+        <title>Prancha</title>
+    </head>
+    <body>
+        <div class="board">
+            <div class="menu">
+                <div class="item item-yes">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/562/562860.png"
+                        alt="foto"
+                    />
+                    <span>Sim</span>
+                </div>
+                <div class="item item-no">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/4807/4807788.png"
+                        alt="foto"
+                    />
+                    <span>Não</span>
+                </div>
+                <div class="item item-idk">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/5736/5736960.png"
+                        alt="foto"
+                    />
+                    <span>Não sei</span>
+                </div>
+                <a class="item" href="./keyboard.html">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/5559/5559853.png"
+                        alt="foto"
+                    />
+                    <span>Soletrar</span>
+                </a>
+                <div id="move-items" class="item mute">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/5485/5485718.png"
+                        alt="Flat Icon"
+                    />
+                    <span>Mover itens</span>
+                </div>
+                <a class="item" href="./config.html">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/5757/5757045.png"
+                        alt="foto"
+                    />
+                    <span>Configurar</span>
+                </a>
+            </div>
 
-			<div class="board-blocks"></div>
-		</div>
-	</body>
+            <div class="board-blocks"></div>
+        </div>
+    </body>
 
-	<script src="js/data.js"></script>
-	<script src="js/utils.js"></script>
-	<script src="js/texttospeech.js"></script>
-	<script>
-		window.onload = () => {
-			// Populating
-			let blocks = document.querySelector('.board-blocks');
-			data.forEach((c) => {
-				let block = document.createElement('div');
-				block.classList.add('board-block');
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/texttospeech.js"></script>
+    <script>
+        window.onload = () => {
+            // Populating
+            let blocks = document.querySelector(".board-blocks");
+            data.forEach((c) => {
+                let block = document.createElement("div");
+                block.classList.add("board-block");
 
-				c.items.forEach((t) => {
-					let item = document.createElement('div');
+                c.items.forEach((t) => {
+                    let item = document.createElement("div");
 
-					item.style.backgroundColor = c.color;
+                    item.style.backgroundColor = c.color;
 
-					if (!isBright(c.color)) {
-						item.style.color = '#fff';
-					}
+                    if (!isBright(c.color)) {
+                        item.style.color = "#fff";
+                    }
 
-					item.classList.add('item');
-					item.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
+                    item.classList.add("item");
+                    item.setAttribute("draggable", false);
+                    item.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
 
-					block.append(item);
-				});
+                    block.append(item);
+                });
 
-				blocks.append(block);
-			});
+                blocks.append(block);
+            });
 
-			// Speaker
-			let speaker = new TextToSpeech();
+            // Speaker
+            let speaker = new TextToSpeech();
 
-			document.querySelectorAll('.item').forEach((item) => {
-				item.addEventListener('click', (evt) => {
-					speaker.talk(item.querySelector('span').innerText);
-				});
-			});
-		};
-	</script>
+            document.querySelectorAll(".item:not(.mute)").forEach((item) => {
+                item.addEventListener("click", (evt) => {
+                    speaker.talk(item.querySelector("span").innerText);
+                });
+            });
+
+            // Drag
+			// https://web.dev/drag-and-drop/
+            let dragObj = null;
+            let editDrag = false;
+
+            function handleDragStart(e) {
+                this.classList.add("border-warning");
+                this.style.opacity = 0.2;
+
+                dragObj = this;
+
+                e.dataTransfer.effectAllowed = "move";
+                e.dataTransfer.setData("text/html", this.innerHTML);
+            }
+
+            function handleDragOver(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+
+                return false;
+            }
+
+            function handleDragEnd(e) {
+                this.classList.remove("border-warning");
+                this.style.opacity = 1;
+            }
+
+            function handleDragEnter(e) {
+                this.classList.add("border-success");
+            }
+
+            function handleDragLeave(e) {
+                this.classList.remove("border-success");
+            }
+
+            function handleDrop(e) {
+                this.classList.remove("border-success");
+                e.stopPropagation();
+
+                if (dragObj !== this) {
+                    dragObj.innerHTML = this.innerHTML;
+                    this.innerHTML = e.dataTransfer.getData("text/html");
+                }
+
+                return false;
+            }
+
+            document.querySelectorAll(".board-blocks .item").forEach((item) => {
+                item.addEventListener("dragstart", handleDragStart);
+                item.addEventListener("dragover", handleDragOver);
+                item.addEventListener("dragend", handleDragEnd);
+                item.addEventListener("dragenter", handleDragEnter);
+                item.addEventListener("dragleave", handleDragLeave);
+                item.addEventListener("drop", handleDrop);
+            });
+
+            document
+                .querySelector("#move-items")
+                .addEventListener("click", (e) => {
+                    if (!editDrag) {
+                        editDrag = true;
+
+                        document
+                            .querySelectorAll(".board-blocks .item")
+                            .forEach((item) => {
+                                item.setAttribute("draggable", true);
+                                item.classList.add("item-border");
+                            });
+                    } else {
+                        editDrag = false;
+
+                        document
+                            .querySelectorAll(".board-blocks .item")
+                            .forEach((item) => {
+                                item.setAttribute("draggable", false);
+                                item.classList.remove("item-border");
+                            });
+                    }
+                });
+        };
+    </script>
 </html>
