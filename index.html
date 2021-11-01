@@ -53,13 +53,13 @@
                     />
                     <span>Soletrar</span>
                 </a>
-                <div id="move-items" class="item mute">
+                <!-- <div id="move-items" class="item mute">
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/5485/5485718.png"
                         alt="Flat Icon"
                     />
                     <span>Mover itens</span>
-                </div>
+                </div> -->
                 <a class="item" href="./config.html">
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/5757/5757045.png"
@@ -80,16 +80,16 @@
         window.onload = () => {
             // Populating
             let blocks = document.querySelector(".board-blocks");
-            data.forEach((c) => {
-                let block = document.createElement("div");
-                block.classList.add("board-block");
+            data.forEach((block) => {
+                let boardBlock = document.createElement("div");
+                boardBlock.classList.add("board-block");
 
-                c.items.forEach((t) => {
+                block.items.forEach((t) => {
                     let item = document.createElement("div");
 
-                    item.style.backgroundColor = c.color;
+                    item.style.backgroundColor = block.color;
 
-                    if (!isBright(c.color)) {
+                    if (!isBright(block.color)) {
                         item.style.color = "#fff";
                     }
 
@@ -97,10 +97,10 @@
                     item.setAttribute("draggable", false);
                     item.innerHTML = `<img src="${t.src}" alt="${t.alt}"/><span>${t.text}</span>`;
 
-                    block.append(item);
+                    boardBlock.append(item);
                 });
 
-                blocks.append(block);
+                blocks.append(boardBlock);
             });
 
             // Speaker
@@ -111,87 +111,6 @@
                     speaker.talk(item.querySelector("span").innerText);
                 });
             });
-
-            // Drag
-			// https://web.dev/drag-and-drop/
-            let dragObj = null;
-            let editDrag = false;
-
-            function handleDragStart(e) {
-                this.classList.add("border-warning");
-                this.style.opacity = 0.2;
-
-                dragObj = this;
-
-                e.dataTransfer.effectAllowed = "move";
-                e.dataTransfer.setData("text/html", this.innerHTML);
-            }
-
-            function handleDragOver(e) {
-                if (e.preventDefault) {
-                    e.preventDefault();
-                }
-
-                return false;
-            }
-
-            function handleDragEnd(e) {
-                this.classList.remove("border-warning");
-                this.style.opacity = 1;
-            }
-
-            function handleDragEnter(e) {
-                this.classList.add("border-success");
-            }
-
-            function handleDragLeave(e) {
-                this.classList.remove("border-success");
-            }
-
-            function handleDrop(e) {
-                this.classList.remove("border-success");
-                e.stopPropagation();
-
-                if (dragObj !== this) {
-                    dragObj.innerHTML = this.innerHTML;
-                    this.innerHTML = e.dataTransfer.getData("text/html");
-                }
-
-                return false;
-            }
-
-            document.querySelectorAll(".board-blocks .item").forEach((item) => {
-                item.addEventListener("dragstart", handleDragStart);
-                item.addEventListener("dragover", handleDragOver);
-                item.addEventListener("dragend", handleDragEnd);
-                item.addEventListener("dragenter", handleDragEnter);
-                item.addEventListener("dragleave", handleDragLeave);
-                item.addEventListener("drop", handleDrop);
-            });
-
-            document
-                .querySelector("#move-items")
-                .addEventListener("click", (e) => {
-                    if (!editDrag) {
-                        editDrag = true;
-
-                        document
-                            .querySelectorAll(".board-blocks .item")
-                            .forEach((item) => {
-                                item.setAttribute("draggable", true);
-                                item.classList.add("item-border");
-                            });
-                    } else {
-                        editDrag = false;
-
-                        document
-                            .querySelectorAll(".board-blocks .item")
-                            .forEach((item) => {
-                                item.setAttribute("draggable", false);
-                                item.classList.remove("item-border");
-                            });
-                    }
-                });
         };
     </script>
 </html>
